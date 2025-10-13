@@ -1,0 +1,125 @@
+---
+title: "Getting Started with sigvis"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started with sigvis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(sigvis)
+```
+
+## Introduction
+
+The `sigvis` package provides a framework for visualizing structured intelligence governance (SIG) systems. It uses R6 classes to create a clean, object-oriented workflow for loading data, building graphs, and creating visualizations.
+
+## Core Classes
+
+The package provides three main R6 classes:
+
+- **SigDat**: Loads data from Google Sheets or uses template data
+- **SigGraph**: Constructs tidygraph objects from SIG data  
+- **SigVis**: Creates network visualizations with ggraph
+
+## Working with Template Data
+
+The package includes template datasets to get you started:
+
+```{r}
+# Explore the template data
+head(template_edges)
+head(template_nodes)
+```
+
+The template data represents a structured intelligence governance system with:
+
+- **Nodes**: Different components like humans, projects, tools, data, reporting
+- **Edges**: Relationships between components with status and requirements
+
+## Basic Workflow
+
+Here's how to create a basic SIG visualization using the template data:
+
+```{r, eval=FALSE}
+# Note: This example shows the intended workflow
+# Some steps require Google Sheets authentication for full functionality
+
+# 1. Load data (using template data)
+# For Google Sheets: sig_dat <- SigDat$new(source = "template")
+# For now, we'll work directly with template data
+
+# 2. Create a graph
+# We'll simulate this with the template data
+mock_sig_dat <- list(
+  get_edges = function() template_edges,
+  get_nodes = function() template_nodes
+)
+
+sig_graph <- SigGraph$new(sig_dat = mock_sig_dat)
+
+# 3. Create visualization
+sig_vis <- SigVis$new(sig_graph = sig_graph)
+
+# 4. Generate plot
+plot <- sig_vis$plot()
+print(plot)
+```
+
+## Understanding the Data Structure
+
+### Edges
+
+The edges data frame contains:
+
+- `from`, `to`: Source and target nodes
+- `to_minimum_requirements`: Description of requirements
+- `arrowkeeper`: Entity responsible for the connection
+- `status`: Current state (operational, buggy, not developed)
+
+### Nodes  
+
+The nodes data frame contains:
+
+- `node`: Name of the component
+- `node_context`: Categorical grouping (humans, projects, tools, etc.)
+
+## Graph Analysis
+
+You can analyze the constructed graph:
+
+```{r, eval=FALSE}
+# Get graph statistics
+sig_graph$node_count()
+sig_graph$edge_count()
+
+# Access the underlying tidygraph object
+graph <- sig_graph$get_graph()
+```
+
+## Node Aggregation
+
+The package supports aggregating nodes by context:
+
+```{r, eval=FALSE}
+# Aggregate nodes by their context
+sig_graph$set_aggregation("node_context")
+sig_graph$refresh()
+```
+
+## Next Steps
+
+- Set up Google Sheets authentication for live data loading
+- Customize visualizations by modifying the SigVis plot method
+- Extend the classes for your specific use case
+- Add custom node and edge attributes
+
+For more information, see the function documentation and explore the source code.

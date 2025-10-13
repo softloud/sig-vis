@@ -1,0 +1,35 @@
+Package: sigvis
+Type: Package
+Title: Structured Intelligence Governance Visualization
+Version: 0.1.0
+Authors@R: c(
+    person("Your", "Name", email = "your.email@example.com", role = c("aut", "cre"))
+    )
+Description: A package for visualizing structured intelligence governance 
+    systems. Provides R6 classes for data loading from Google Sheets, 
+    graph construction with tidygraph, and network visualization with ggraph.
+    Supports template data and client-specific configurations.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.3
+Depends: 
+    R (>= 4.1.0)
+Imports:
+    R6,
+    dplyr,
+    purrr,
+    tidygraph,
+    ggraph,
+    ggplot2
+Suggests:
+    googlesheets4,
+    dotenv,
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown,
+    pkgdown
+Config/testthat/edition: 3
+VignetteBuilder: knitr
+URL: https://github.com/softloud/sig-vis
+BugReports: https://github.com/softloud/sig-vis/issues
