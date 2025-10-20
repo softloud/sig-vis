@@ -1,3 +1,6 @@
+# Credentials - important
+credentials/local-creds/*env*
+
 # History files
 .Rhistory
 .Rapp.history
